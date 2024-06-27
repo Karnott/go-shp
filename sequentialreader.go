@@ -212,8 +212,13 @@ func (sr *seqReader) Err() error {
 
 // Close closes the seqReader and free all the allocated resources.
 func (sr *seqReader) Close() error {
-	if err := sr.shp.Close(); err != nil {
-		return err
+	if sr.shp != nil {
+		if err := sr.shp.Close(); err != nil {
+			return err
+		}
+	}
+	if sr.dbf == nil {
+		return nil
 	}
 	if err := sr.dbf.Close(); err != nil {
 		return err
