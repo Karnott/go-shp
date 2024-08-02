@@ -176,8 +176,8 @@ func (sr *seqReader) Next() bool {
 		sr.err = fmt.Errorf("error when reading DBF row: %v", err)
 		return false
 	}
-	if sr.dbfRow[0] != 0x20 && sr.dbfRow[0] != 0x2a {
-		sr.err = fmt.Errorf("Attribute row %d starts with incorrect deletion indicator", num)
+	if (len(sr.dbfRow) == 0) || (sr.dbfRow[0] != 0x20 && sr.dbfRow[0] != 0x2a) {
+		sr.err = fmt.Errorf("attribute row %d starts with incorrect deletion indicator", num)
 	}
 	return sr.err == nil
 }
